@@ -7,10 +7,10 @@ describe('Create a pastebin post', () => {
 
     // Enter the code
     const text = 'git reset $(git commit-tree HEAD^{tree} -m "Legacy code" \ngit reset $(git commit-tree HEAD^{tree} -m "Legacy code")\ngit push origin master --force '
-    await $('#postform-text').setValue();
+    await $('#postform-text').setValue(text);
 
     // Enter the paste name
-    await $('#postform-name').setValue('helloweb');
+    await $('#postform-name').setValue('how to gain dominance among developers');
 
     // Click on the paste expiration dropdown
     await $('#select2-postform-expiration-container').click();
@@ -18,8 +18,16 @@ describe('Create a pastebin post', () => {
     // Select the option for 10 Minutes expiration
     await $('.select2-results__option[id*="10M"]').click();
 
+    // // Click on Syntax highlit
+    // await $('#select2-postform-format-container').click();
+
+    // // //Click on Bash option
+    // await $('.select2-results__option[id*=Bash]').click();
+
+    await browser.pause(10000);
+
     // Click the button to create the paste
-    await $('.form-btn-container button').click();
+    // await $('.form-btn-container button').click();
   });
 });
 
