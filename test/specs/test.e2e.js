@@ -6,7 +6,7 @@ describe('Create a pastebin post', () => {
     await browser.url('https://pastebin.com/');
     // Enter the code
     const text =
-      ' git config --global user.name  "New Sheriff in Town"\ngit reset $(git commit-tree HEAD^{tree} -m "Legacy code")\ngit push origin master --force';
+      'git config --global user.name  "New Sheriff in Town"\ngit reset $(git commit-tree HEAD^{tree} -m "Legacy code")\ngit push origin master --force';
     await $('#postform-text').setValue(text);
     // Enter the paste name
     const pasteName = 'how to gain dominance among developers';
@@ -21,43 +21,35 @@ describe('Create a pastebin post', () => {
     await browser.keys('ArrowDown');
     // Press Enter to select the Bash option
     await browser.keys('Enter');
-    // await browser.pause(10000);
     // Click the button to create the paste
     await $('.form-btn-container button').click();
-  });
 
-  it('should match the paste name', async () => {
-    const pasteName = 'how to gain dominance among developers';
-    await browser.url('https://pastebin.com/QLdG1VNg');
     await $('div.info-top > h1').waitForDisplayed();
     const pageTitle = await $('div.info-top > h1').getText();
-    // Use WebdriverIO's built-in assertion method
+    // Checking page Title
     await expect(pageTitle).toBe(pasteName);
-  });
 
-  it('should syntax be suspended for bash', async () => {
-    await browser.url('https://pastebin.com/QLdG1VNg');
     await $('div.left > a.btn.-small.h_800').waitForDisplayed();
     const syntax = await $('div.left > a.btn.-small.h_800').getText();
-
+    // Checking correct syntax
     await expect(syntax).toBe('Bash');
-  });
 
-  it('should have correct code', async () => {
     const firstLine = 'git config --global user.name  "New Sheriff in Town"';
     const secondLine = 'git reset $(git commit-tree HEAD^{tree} -m "Legacy code")';
     const thirdLine = 'git push origin master --force';
 
-    await browser.url('https://pastebin.com/QLdG1VNg');
     await $('div.highlighted-code > div.source.bash').waitForDisplayed();
 
     const syntaxOne = await $('div.source.bash > ol > li:nth-child(1)').getText();
+    // Checking line 1
     await expect(syntaxOne).toBe(firstLine);
 
     const syntaxTwo = await $('div.source.bash > ol > li:nth-child(2)').getText();
+    // Checking line 2
     await expect(syntaxTwo).toBe(secondLine);
 
     const syntaxThree = await $('div.source.bash > ol > li:nth-child(3)').getText();
+    // Checking line 3
     await expect(syntaxThree).toBe(thirdLine);
   });
 });
